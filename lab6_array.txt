@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+
+const int N = 50;
+
+void input_arr(int in_arr[N], int &in_n);
+void output_arr(const int out_arr[], int out_n);
+int show_mas_even(const int out_mas[N], const int n);
+int check_even_odd_sequence(const int arr[N], int n);
+
+void task1()
+{
+    // Декларації
+    int arr[N]; // Масив
+    int n, K;   // Кількість елементів
+
+    // Введення елементів
+    input_arr(arr, n);
+
+    // Виведення елементів
+    output_arr(arr, n);
+
+    // Підрахунок/виведення елементів
+    K = show_mas_even(arr, n);
+    cout << "Even elements count: " << K << endl;
+
+    // Перевірка чергуються чи ні
+    int result = check_even_odd_sequence(arr, n);
+    if (result == 0)
+    {
+        cout << "Even and odd elements are alternating." << endl;
+    }
+    else
+    {
+        cout << "Sequence is violated at position: " << result << endl;
+    }
+}
+
+int main()
+{
+    task1();
+    return 0;
+}
+
+void input_arr(int in_arr[N], int &in_n)
+{
+    cout << "Count of elements: ";
+    cin >> in_n;
+    for (int i = 0; i < in_n; i++)
+    {
+        cin >> in_arr[i];
+    }
+}
+
+void output_arr(const int out_arr[], int out_n)
+{
+    cout << "Array elements: " << endl;
+    for (int i = 0; i < out_n; i++)
+    {
+        cout << out_arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int show_mas_even(const int out_mas[N], const int n)
+{
+    int ev_count = 0;
+    cout << endl << "Even array elements: " << endl;
+    for (int i = n - 1; i >= 0; i--) // В зворотному порядку
+        if (!(out_mas[i] % 2))
+        {
+            cout << out_mas[i] << " ";
+            ev_count++;
+        }
+    cout << endl;
+    return ev_count;
+}
+
+int check_even_odd_sequence(const int arr[N], int n)
+{
+    for (int i = 1; i < n; i++)
+    {
+        // Якщо попередній елемент та поточний мають однакову парність
+        if ((arr[i - 1] % 2 == 0 && arr[i] % 2 == 0) || (arr[i - 1] % 2 != 0 && arr[i] % 2 != 0))
+        {
+            return i; // Повертаємо порядковий номер першого елемента, що порушує закономірність
+        }
+    }
+    return 0; // Якщо чергуються, повертаємо 0
+}
+Ваша основна функція тепер включає в себе виклик нової функції check_even_odd_sequence, яка перевіряє, чи чергуються парні та непарні елементи в масиві. Якщо закономірність порушена, то повертається порядковий номер першого елемента, що порушує це правило.
